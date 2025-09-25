@@ -19,6 +19,7 @@ public class BookstoreApplication {
 		SpringApplication.run(BookstoreApplication.class, args);
 	}
 
+	//bean tekee sovelluksen käynnistyessä testidataa
 	@Bean
 	public CommandLineRunner demo(BookRepository bookRepository) {
 		return (args) -> {

@@ -4,6 +4,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 
 @Entity
 
@@ -13,8 +16,19 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.AUTO)
 
     private Long id;
-    private String title, author;
-    private int publicationYear, isbn, price;
+
+    @NotEmpty(message = "Book's title cannot be empty.")
+    @Size(min = 1, max = 250)
+    private String title;
+
+    @NotEmpty(message = "Book's author cannot be empty.")
+    @Size(min = 1, max = 250)
+    private String author;
+
+    @Min(value = 0, message = "Publishing year cannot be negative or null.")
+    private int publicationYear;
+
+    private int isbn, price;
 
     public Book() {
     }

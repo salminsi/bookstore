@@ -12,6 +12,7 @@
     </div>
      <table class="table table-striped">
 		<tr>
+            <th>Id</th>
 		    <th>Author</th>
             <th>Title</th>
 		    <th>Publication year</th>
@@ -20,16 +21,19 @@
 		</tr>  
 
     	<tr th:each = "book : ${books}">
+            <td th:text="${book.id}"></td>
     		<td th:text="${book.author}"></td>
             <td th:text="${book.title}"></td>
     		<td th:text="${book.publicationYear}"></td> 
             <td th:text="${book.isbn}"></td>
             <td th:text="${book.price}"></td>	
-            <td sec:authorize="hasRole('ADMIN')"><a th:href="@{/delete/{id}(id=${book.id})}" class="btn btn-xs btn-danger">Delete</a></td>    		
+            <td><a th:href="@{/edit/{id}(id=${book.id})}">Edit</a></td>
+            <td><a th:href="@{/delete/{id}(id=${book.id})}">Delete</a></td>    		
     	</tr>
 
      </table>
-     <a href="/add" class="btn btn-primary">Add Book</a>  
+     <br>
+     <a href="/add">Add Book</a> 
 </div>  
     
     
