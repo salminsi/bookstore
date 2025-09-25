@@ -25,9 +25,11 @@ public class BookstoreApplication {
 			// lisätään kirjoja
 			Book book1 = new Book("Opi Spring Boottia", "Pelle Hermanni", 2022, 12134567, 29);
 			Book book2 = new Book("Opi Spring Boottia, osa 2", "Pelle Hermanni", 2022, 12134567, 29);
+			Book book3 = new Book("Opi taitavaksi Javaajaksi", "Kalle Ankka", 2018, 12134654, 14);
 			// tallenna kirjat (h2)-tietokantaan
 			bookRepository.save(book1);
 			bookRepository.save(book2);
+			bookRepository.save(book3);
 
 			for (Book book : bookRepository.findAll()) {
 				log.info(book.toString());
