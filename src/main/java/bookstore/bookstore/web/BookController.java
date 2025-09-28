@@ -75,22 +75,21 @@ public class BookController {
     }
 
     /*
-     * @PostMapping("/saveEditedBook")
-     * public String saveEditedBook(@Valid @ModelAttribute("edit") Book book,
-     * BindingResult bindingResult, Model model) {
-     * log.info ("CONTROLLER: Save edited the book - check validation of book: " +
-     * book);
-     * 
-     * if (bindingResult.hasErrors()) {
-     * log.error("some validation error happened, book: " + book);
-     * model.addAttribute("edit", book);
-     * 
-     * return "editbook";
-     * }
-     * log.info("save book: " + book);
-     * bookRepository.save(book);
-     * return "redirect:/booklist";
-     * }
+      @PostMapping("/saveEditedBook")
+      public String saveEditedBook(@Valid @ModelAttribute("edit") Book book,
+      BindingResult bindingResult, Model model) {
+      log.info("CONTROLLER: Save edited the book - check validation of book: " + book);
+      
+      if (bindingResult.hasErrors()) {
+      log.error("some validation error happened, book: " + book);
+      model.addAttribute("edit", book);
+      
+      return "editbook";
+      }
+      log.info("save book: " + book);
+      bookRepository.save(book);
+      return "redirect:/booklist";
+      }
      */
 
     @PostMapping("/edit/save")
