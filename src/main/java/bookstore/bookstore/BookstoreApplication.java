@@ -9,6 +9,8 @@ import org.springframework.context.annotation.Bean;
 
 import bookstore.bookstore.domain.Book;
 import bookstore.bookstore.domain.BookRepository;
+import bookstore.bookstore.domain.Category;
+import bookstore.bookstore.domain.CategoryRepository;
 
 @SpringBootApplication
 public class BookstoreApplication {
@@ -21,16 +23,23 @@ public class BookstoreApplication {
 
 	//bean tekee sovelluksen käynnistyessä testidataa
 	@Bean
-	public CommandLineRunner demo(BookRepository bookRepository) {
+	public CommandLineRunner demo(BookRepository bookRepository, CategoryRepository categoryRepository) {
 		return (args) -> {
+			//lisätään kategorioita
+			categoryRepository.save(new Category("Dokkari"));
+			categoryRepository.save(new Category("Scifi"));
 			// lisätään kirjoja
 			Book book1 = new Book("Opi Spring Boottia", "Pelle Hermanni", 2022, 12134567, 29);
 			Book book2 = new Book("Opi Spring Boottia, osa 2", "Pelle Hermanni", 2022, 12134567, 29);
 			Book book3 = new Book("Opi taitavaksi Javaajaksi", "Kalle Ankka", 2018, 12134654, 14);
-			// tallenna kirjat (h2)-tietokantaan
+			Book book4 = new Book("Opi taitavaksi Javaajaksi2", "Kalle Ankka", 2020, 12134258, 16, categoryRepository.findByName("Dokkari").get(0));
+			bookRepository.save(new Book("Koodailun iloa", "Kalle Hirvi", 2014, 12134645, 19, categoryRepository.findByName("Scifi").get(0)));
+
+			// tallenna kirjat 1-4 (h2)-tietokantaan
 			bookRepository.save(book1);
 			bookRepository.save(book2);
 			bookRepository.save(book3);
+			bookRepository.save(book4);
 
 			for (Book book : bookRepository.findAll()) {
 				log.info(book.toString());

@@ -4,6 +4,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
@@ -28,6 +30,10 @@ public class Book {
     @Min(value = 0, message = "Publishing year cannot be negative or null.")
     private int publicationYear;
 
+    @ManyToOne
+    @JoinColumn(name = "categoryid") // categoryid tulee tietokannasta (fk)
+    private Category kategoria;
+
     private int isbn, price;
 
     public Book() {
@@ -39,6 +45,21 @@ public class Book {
         this.publicationYear = publicationYear;
         this.isbn = isbn;
         this.price = price;
+    }
+
+    public Book(Category kategoria) {
+        this.kategoria = kategoria;
+    }
+
+    public Book(@NotEmpty(message = "Book's title cannot be empty.") @Size(min = 1, max = 250) String title,
+            @NotEmpty(message = "Book's author cannot be empty.") @Size(min = 1, max = 250) String author,
+            @Min(value = 0, message = "Publishing year cannot be negative or null.") int publicationYear, int isbn, int price, Category kategoria) {
+        this.title = title;
+        this.author = author;
+        this.publicationYear = publicationYear;
+        this.isbn = isbn;
+        this.price = price;
+        this.kategoria = kategoria;
     }
 
     public Long getId() {
@@ -89,10 +110,22 @@ public class Book {
         this.price = price;
     }
 
+    public void setCategory(Category category) {
+        this.kategoria = category;
+    }
+
     @Override
     public String toString() {
         return "Book [id=" + id + ", title=" + title + ", author=" + author + ", publicationYear=" + publicationYear
                 + ", isbn=" + isbn + ", price=" + price + "]";
+    }
+
+    public Category getKategoria() {
+        return kategoria;
+    }
+
+    public void setKategoria(Category kategoria) {
+        this.kategoria = kategoria;
     }
 
 }

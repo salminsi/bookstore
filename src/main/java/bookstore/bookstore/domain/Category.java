@@ -2,6 +2,7 @@ package bookstore.bookstore.domain;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -17,14 +18,14 @@ public class Category {
 
     private String name;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "kategoria")
     private List<Book> books;
 
     public Category() {
     }
 
-    public Category(Long id, String name) {
-        this.id = id;
+    //ei id:tä konstruktoriin, koska tulee tietokannasta.
+    public Category(String name) {
         this.name = name;
     }
 

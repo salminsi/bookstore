@@ -2,16 +2,17 @@ package bookstore.bookstore.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-//import org.springframework.validation.BindingResult;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-//import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import bookstore.bookstore.domain.Book;
 import bookstore.bookstore.domain.BookRepository;
-//import jakarta.validation.Valid;
+import bookstore.bookstore.domain.CategoryRepository;
+import jakarta.validation.Valid;
 
 //orkesterinjohtaja
 @Controller
@@ -19,10 +20,12 @@ import bookstore.bookstore.domain.BookRepository;
 public class BookController {
 
     private BookRepository bookRepository;
+    private CategoryRepository categoryRepository;
 
     // constructor injection
-    public BookController(BookRepository bookRepository) {
+    public BookController(BookRepository bookRepository, CategoryRepository categoryRepository) {
         this.bookRepository = bookRepository;
+        this.categoryRepository = categoryRepository;
     }
 
     @GetMapping("/booklist")
@@ -48,6 +51,7 @@ public class BookController {
     @GetMapping("/add")
     public String addBookForm(Model model) {
         model.addAttribute("book", new Book());
+        model.addAttribute("categories", categoryRepository.findAll());
         return "addbook";
     }
 
@@ -66,6 +70,7 @@ public class BookController {
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable Long id, Model model) {
         model.addAttribute("edit", bookRepository.findById(id));
+        model.addAttribute("categories", categoryRepository.findAll());
         return "editbook";
     }
 
