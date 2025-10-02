@@ -9,9 +9,11 @@ import bookstore.bookstore.domain.CategoryRepository;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 
@@ -21,11 +23,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class BookRestController {
 
     private final BookRepository bookRepository;
-    private final CategoryRepository categoryRepository;
 
-    public BookRestController (BookRepository bookRepository, CategoryRepository categoryRepository) {
+    public BookRestController (BookRepository bookRepository) {
         this.bookRepository = bookRepository;
-        this.categoryRepository = categoryRepository;
     }
 
     //return list of books
@@ -45,21 +45,19 @@ public class BookRestController {
         return bookRepository.save(book);
     }
 
-    //restin kautta kirjan editointi EI TOIMI:
-
-//    @GetMapping("/edit/{id}")
-//    public Optional<Book> editBookById(@PathVariable Long id) {
-//        return bookRepository.findById(id);
-//    }
-
-
-    //restin kautta kirjan poisto EI TOIMI:
+    //restin kautta kirjan editointi:
+    @PutMapping("/books/{id}")
+    public Book editBook(@RequestBody Book editedBook, @PathVariable Long id) {
+        editedBook.setId(id);
+        return bookRepository.save(editedBook);
+    }
 
 
- //   @GetMapping("/delete/{id}")
- //   public Optional<Book>deleteBook(@PathVariable Long id) {
- //       return bookRepository.findById(id);
- //   }
+    //restin kautta kirjan poisto:
+    @DeleteMapping("/books/{id}")
+    public void deleteBook(@PathVariable Long id) {
+       bookRepository.deleteById(id);
+   }
     
     
 
