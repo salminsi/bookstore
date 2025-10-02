@@ -114,11 +114,7 @@ public class Book {
         this.kategoria = category;
     }
 
-    @Override
-    public String toString() {
-        return "Book [id=" + id + ", title=" + title + ", author=" + author + ", publicationYear=" + publicationYear
-                + ", isbn=" + isbn + ", price=" + price + "]";
-    }
+    
 
     public Category getKategoria() {
         return kategoria;
@@ -127,5 +123,13 @@ public class Book {
     public void setKategoria(Category kategoria) {
         this.kategoria = kategoria;
     }
+
+    @Override
+    public String toString() {
+        return "Book [id=" + id + ", title=" + title + ", author=" + author + ", publicationYear=" + publicationYear
+                + ", kategoria=" + kategoria + ", isbn=" + isbn + ", price=" + price + "]";
+    }
+
+    
 
 }
