@@ -11,6 +11,7 @@ import bookstore.bookstore.domain.AppUserRepository;
 
 //täällä on Käyttäjän hallinta. 
 //Tämän voi kopioida, tulee olemaan kaikilla samanlainen.
+// olisi ollut parempi olla paketissa "service" web sijasta
 
 @Service
 public class UserDetailService implements UserDetailsService {

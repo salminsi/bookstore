@@ -1,5 +1,6 @@
 package bookstore.bookstore.web;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -7,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import bookstore.bookstore.domain.Book;
@@ -61,6 +63,8 @@ public class BookController {
         return "redirect:/booklist";
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')") // tämä estää, ettei voi deletoida muut kuin admin esim suoraan urlin kautta
+                                           // (pitää olla authority kuten thymeleafissa, ei role)
     @GetMapping("/delete/{id}")
     public String deleteBook(@PathVariable Long id) {
         bookRepository.deleteById(id);
@@ -75,21 +79,22 @@ public class BookController {
     }
 
     /*
-      @PostMapping("/saveEditedBook")
-      public String saveEditedBook(@Valid @ModelAttribute("edit") Book book,
-      BindingResult bindingResult, Model model) {
-      log.info("CONTROLLER: Save edited the book - check validation of book: " + book);
-      
-      if (bindingResult.hasErrors()) {
-      log.error("some validation error happened, book: " + book);
-      model.addAttribute("edit", book);
-      
-      return "editbook";
-      }
-      log.info("save book: " + book);
-      bookRepository.save(book);
-      return "redirect:/booklist";
-      }
+     * @PostMapping("/saveEditedBook")
+     * public String saveEditedBook(@Valid @ModelAttribute("edit") Book book,
+     * BindingResult bindingResult, Model model) {
+     * log.info("CONTROLLER: Save edited the book - check validation of book: " +
+     * book);
+     * 
+     * if (bindingResult.hasErrors()) {
+     * log.error("some validation error happened, book: " + book);
+     * model.addAttribute("edit", book);
+     * 
+     * return "editbook";
+     * }
+     * log.info("save book: " + book);
+     * bookRepository.save(book);
+     * return "redirect:/booklist";
+     * }
      */
 
     @PostMapping("/edit/save")

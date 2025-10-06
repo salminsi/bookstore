@@ -13,7 +13,7 @@ import org.springframework.security.web.SecurityFilterChain;
 //Tämä luokka sisältää tietoa mihin url-osoitteisiin on pääsy
 
 @Configuration
-@EnableMethodSecurity(securedEnabled = true)
+@EnableMethodSecurity(securedEnabled = true) //mahdollistaa metoditasoisia security-asetuksia
 public class WebSecurityConfig {
 
     private UserDetailsService userDetailsService; // type of attribute -> interface
@@ -28,18 +28,18 @@ public class WebSecurityConfig {
 
         http.authorizeHttpRequests(
                 authorize -> authorize
-                        //.requestMatchers("/css/**").permitAll()
-                        .requestMatchers("/test**").permitAll() // tähän pääsee kirjautumatta kaikki
+                        .requestMatchers("/css/**").permitAll()
+                        .requestMatchers("/books**").permitAll() // tähän pääsee kirjautumatta kaikki
                         // .requestMatchers(toH2Console()).permitAll() // for h2console, pääsee kaikki
+                        .requestMatchers("/h2-console/").permitAll() // vaihdettu suora url niin toimii
                         .anyRequest().authenticated()) // kaikki muut rekvestit pitää autentikoida
                 .headers(headers -> headers.frameOptions(frameOptions -> frameOptions
                         .disable())) // for h2console
                 .formLogin(formlogin -> formlogin // login-sivulle kaikilla oikeudet
                         .defaultSuccessUrl("/booklist", true) // mihin mennään onnistuneen loggauksen jälkeen
                         .permitAll())
-                .logout(logout -> logout.permitAll()); // logout-sivulle kaikilla oikeudet HUOM!! ota ; pois kun
-                                                       // vapautat csrf ja ylhäältä H2Console
-        // .csrf(csrf -> csrf.ignoringRequestMatchers(toH2Console())); // for h2console,
+                .logout(logout -> logout.permitAll()) // logout-sivulle kaikilla oikeudet
+                .csrf(csrf -> csrf.disable()); // for h2console. liittyy restiin
         // not for production, just
         // for development
 
@@ -47,7 +47,8 @@ public class WebSecurityConfig {
 
     }
 
-    @Autowired
+    @Autowired // tutkii seuraavaksi salasana (ilman tätä kryptaus ei toiminut tai en ainakaan
+               // onnistunut kirjautumaan)
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
     }

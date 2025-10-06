@@ -3,7 +3,7 @@ package bookstore.bookstore.domain;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "UserTable")
+//@Table(name = "UserTable")
 
 public class AppUser {
 
