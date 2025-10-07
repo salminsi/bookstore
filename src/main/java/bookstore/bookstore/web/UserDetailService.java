@@ -23,7 +23,8 @@ public class UserDetailService implements UserDetailsService {
         this.repository = appUserRepository;
     }
 
-    @Override
+    @Override // kirjautuessa tätä metodia kutsutaan ja metodi hakee käyttäjän roolin ja
+              // salasanan (käyttää kryptays-työkalua)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         AppUser curruser = repository.findByUsername(username);
         UserDetails user = new org.springframework.security.core.userdetails.User(username, curruser.getPasswordHash(),
