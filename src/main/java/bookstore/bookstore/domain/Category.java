@@ -14,13 +14,12 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="category")
-
+@Table(name = "category")
 
 public class Category {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, updatable = false)
     private Long id;
 
@@ -35,7 +34,7 @@ public class Category {
     public Category() {
     }
 
-    //ei id:tä konstruktoriin, koska tulee tietokannasta.
+    // ei id:tä konstruktoriin, koska tulee tietokannasta.
     public Category(String name) {
         this.name = name;
     }
@@ -55,7 +54,5 @@ public class Category {
     public void setName(String name) {
         this.name = name;
     }
-
-    
 
 }

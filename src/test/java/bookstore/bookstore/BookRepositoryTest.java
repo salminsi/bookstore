@@ -7,14 +7,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.List;
 
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+//import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import bookstore.bookstore.domain.Book;
 import bookstore.bookstore.domain.BookRepository;
 //import bookstore.bookstore.domain.Category;
 import bookstore.bookstore.domain.CategoryRepository;
 
-@DataJpaTest // kun käytetään h2
+//@DataJpaTest // kun käytetään h2
 @SpringBootTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE) // if you are using real db tämä varmistaa
 // ettei tee pysyviä muutoksia tietokantaan
@@ -36,9 +36,9 @@ public class BookRepositoryTest {
 
   @Test
   public void findByTitleShouldReturnAuthor() {
-    List<Book> books = bookRepository.findByTitle("Opi taitavaksi Javaajaksi");
+    List<Book> books = bookRepository.findByTitle("Javaa vain");
     // assertThat(books).hasSize(1);
-    assertThat(books.get(0).getAuthor()).isEqualTo("Kalle Ankka");
+    assertThat(books.get(0).getAuthor()).isEqualTo("Maija Maikalainen");
   }
 
   @Test
@@ -51,10 +51,10 @@ public class BookRepositoryTest {
 
   @Test
   public void deleteBook() {
-    List<Book> books = bookRepository.findByTitle("Opi taitavaksi Javaajaksi2");
+    List<Book> books = bookRepository.findByTitle("Kukko Kiekuu");
     Book book = books.get(0);
     bookRepository.delete(book);
-    List<Book> newBooks = bookRepository.findByTitle("Opi taitavaksi Javaajaksi2");
+    List<Book> newBooks = bookRepository.findByTitle("Kukko Kiekuu");
     assertThat(newBooks).hasSize(0);
 
   }
