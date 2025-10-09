@@ -3,6 +3,7 @@ package bookstore.bookstore.domain;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "appuser")
 
 public class AppUser {
 
@@ -16,10 +17,10 @@ public class AppUser {
     @Column(name = "username", nullable = false, unique = true)
     private String username;
 
-    @Column(name = "password", nullable = false)
+    @Column(name = "app_password", nullable = false)
     private String passwordHash;
 
-    @Column(name = "role", nullable = false)
+    @Column(name = "app_role", nullable = false)
     private String role;
 
     public AppUser() {

@@ -24,6 +24,7 @@ public class BookstoreApplication {
 	}
 
 	// bean tekee sovelluksen käynnistyessä testidataa
+	/* 
 	@Bean
 	public CommandLineRunner demo(BookRepository bookRepository, CategoryRepository categoryRepository,
 			AppUserRepository appUserRepository) {
@@ -61,8 +62,12 @@ public class BookstoreApplication {
 			log.info("fetch all app users");
 			for (AppUser user : appUserRepository.findAll()) {
 				log.info("KÄYTTÄJÄ: " + user.toString());
-			}
+			}  
+			
 
 		};
 	}
+
+	*/
+	
 }
