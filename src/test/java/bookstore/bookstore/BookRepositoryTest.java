@@ -13,9 +13,11 @@ import bookstore.bookstore.domain.Book;
 import bookstore.bookstore.domain.BookRepository;
 //import bookstore.bookstore.domain.Category;
 import bookstore.bookstore.domain.CategoryRepository;
+import jakarta.transaction.Transactional;
 
 //@DataJpaTest // kun käytetään h2
 @SpringBootTest
+@Transactional
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE) // if you are using real db tämä varmistaa
 // ettei tee pysyviä muutoksia tietokantaan
 public class BookRepositoryTest {

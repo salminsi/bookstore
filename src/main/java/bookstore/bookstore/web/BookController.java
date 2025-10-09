@@ -63,7 +63,7 @@ public class BookController {
         return "redirect:/booklist";
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')") // tämä estää, ettei voi deletoida muut kuin admin esim suoraan urlin kautta
+    @PreAuthorize("hasAuthority('admin')") // tämä estää, ettei voi deletoida muut kuin admin esim suoraan urlin kautta
                                            // (pitää olla authority kuten thymeleafissa, ei role)
     @GetMapping("/delete/{id}")
     public String deleteBook(@PathVariable Long id) {
